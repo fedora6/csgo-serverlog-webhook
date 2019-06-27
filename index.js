@@ -8,11 +8,6 @@ var WebHooks = require('node-webhooks');
 var webHooks = new WebHooks({
   db: './webHooksDB.json'
 });
-/*webHooks.add('throw', 'https://webhook.site/d1c0e5fc-776a-4eb9-bb2f-04431a83fb36').then(function(){
-	// done
-}).catch(function(err){
-	console.log(err)
-});*/
 
 //On udp socket receiving a message
 socket.on('message', function (message, rinfo) {
