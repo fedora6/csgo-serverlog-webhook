@@ -45,7 +45,7 @@ app.use(express.json());
 
 //Get all webhook URLs
 app.get('/api/webhook/get', function (req, res) {
-  webHooks.getDB().then(function(obj){
+  webHooks.getDB().then(function (obj) {
     res.send(obj);
   }).catch(function(err){
     console.log(err);
@@ -53,7 +53,7 @@ app.get('/api/webhook/get', function (req, res) {
 });
 //Get all webhook URLs for a given event
 app.get('/api/webhook/get/:eventname', function (req, res) {
-  webHooks.getWebHook(req.params.eventname).then(function(obj){
+  webHooks.getWebHook(req.params.eventname).then(function (obj) {
     res.send(obj);
   }).catch(function(err){
     console.log(err);
@@ -78,6 +78,21 @@ app.post('/api/webhook/delete/:eventname', function (req, res) {
   webHooks.remove(req.params.eventname, req.body.url).then(function(){
     res.send('Deleted '+req.body.url+' from '+req.params.eventname);
   }).catch(function(err){console.error(err);});
+});
+//Delete a specific URL from all events
+app.post('/api/webhook/delete', function (req, res) {
+  var keys = [];
+  webHooks.getDB().then(function (obj) {
+    Object.keys(obj).forEach(function (key) {
+      if(obj[key].indexOf(req.body.url) > -1) {
+        keys.push(key);
+        webHooks.remove(key, req.body.url).catch(function(err){console.error(err);});
+      }
+    });
+    res.send('Deleted '+req.body.url+' from '+keys.join(', '));
+  }).catch(function(err){
+    console.log(err);
+  });
 });
 
 app.listen(port, () => console.log(`Express listening on port ${port}`));

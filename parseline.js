@@ -573,10 +573,38 @@ var parseLine = function(line) {
     break;
     case rgx.get5event.test(line):
     match = line.match(rgx.get5event);
-    ev.type = 'get5';
+    var g5ev = JSON.parse(match[3]);
+    if (g5ev.hasOwnProperty('params') && g5ev.params.hasOwnProperty('event')) {
+      switch (g5ev.params.event) {
+        case 'series_start':
+        case 'series_end':
+        ev.type = 'get5series';
+        break;
+        case 'map_veto':
+        case 'map_pick':
+        case 'side_picked':
+        ev.type = 'get5veto';
+        break;
+        case 'knife_start':
+        case 'knife_won':
+        case 'going_live':
+        case 'round_end':
+        case 'side_swap':
+        case 'map_end':
+        ev.type = 'get5map';
+        break;
+        case 'match_config_load_fail':
+        case 'backup_loaded':
+        ev.type = 'get5misc';
+        break;
+        default:
+        ev.type = 'get5';
+        break;
+      }
+    }
     ev.data.date = match[1];
     ev.data.time = match[2];
-    ev.data.get5 = match[3];
+    ev.data.get5 = g5ev;
     break;
     case rgx.connect.test(line):
     match = line.match(rgx.connect);
