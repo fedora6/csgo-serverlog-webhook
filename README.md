@@ -13,6 +13,8 @@ By default listens for incoming server logs on port 3001, express API for adding
 
 `POST /api/webhook/delete/:eventname` - Delete a given URL from given event, requires url in body
 
+`POST /api/webhook/delete/` - Delete a given URL from all events, requires url in body
+
 
 ## Events
 
