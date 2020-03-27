@@ -1,19 +1,27 @@
+// @ts-check
 //Dgram for handling udp server logs being sent in
-var dgram = require('dgram'),
+const dgram = require('dgram'),
   socket = dgram.createSocket('udp4');
 //Log line parsing utility
-var parser = require('./parseline');
+const parser = require('./parseline');
 //Webhooks package for pushing out events
-var WebHooks = require('node-webhooks');
-var webHooks = new WebHooks({
+const WebHooks = require('node-webhooks');
+const webHooks = new WebHooks({
   db: './webHooksDB.json'
 });
+
+/**
+ * @typedef {import('./types.js').ServerEvent} ServerEvent
+ */
 
 //On udp socket receiving a message
 socket.on('message', function (message, rinfo) {
   //Trim non-standard log line characters and whitespace
   var msg = message.toString('ascii').slice(5,-1).trim();
   //Parse log line
+  /**
+   * @type {ServerEvent}
+   */
   var ev = parser.parseLine(msg);
   if (ev) {
     //Send out event created by log line
