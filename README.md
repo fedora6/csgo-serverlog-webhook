@@ -241,3 +241,10 @@ Below is a list of all events, as well as any additional data items they contain
 - `pause`
 
 - `unpause`
+
+- `accolade`
+  - accolade
+  - source
+  - value
+  - pos
+  - score
