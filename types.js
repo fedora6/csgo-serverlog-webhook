@@ -20,7 +20,7 @@
  * @property {string} [weapon]
  * @property {ServerEventDataHealth} [health]
  * @property {ServerEventDataHealth} [armour]
- * @property {string} [hitgroup]
+ * @property {string} [hitgroup] - 'generic' | 'head' | 'neck' | 'chest' | 'stomach' | 'left arm' | 'right arm' | 'left leg' | 'right leg' | 'gear'
  * @property {boolean} [headshot]
  * @property {boolean} [penetration]
  * @property {string} [duration]
@@ -37,6 +37,9 @@
  * @property {number} [alive]
  * @property {string} [action]
  * @property {string} [reason]
+ * @property {string} [accolade]
+ * @property {number} [value]
+ * @property {number} [pos]
  */
 
 /**
@@ -55,7 +58,7 @@
 
 /**
  * @typedef {Object} ServerEventDataGrenade
- * @property {string} type
+ * @property {string} type - 'flashbang' | 'smokegrenade' | 'molotov' | 'hegrenade' | 'decoy'
  * @property {string} coord
  */
 
@@ -68,7 +71,7 @@
 /**
  * @typedef {Object} ServerEventDataTeam
  * @property {string} name
- * @property {string} side
+ * @property {string} side - 'TERRORIST' | 'CT' | 'Spectator'
  */
 
 /**
@@ -94,11 +97,11 @@
  * @property {string} [side] - T|CT
  * @property {string} [selected_side] - T|CT
  * @property {string} [winner_side] - T|CT
- * @property {string} [client] - player
- * @property {string} [attacker] - player that got the kill
- * @property {string} [victim] - player that died
- * @property {string} [assister] - assisting player
- * @property {string} [flash_assister] - flash assisting player
+ * @property {ServerEventDataPlayer} [client] - player
+ * @property {ServerEventDataPlayer} [attacker] - player that got the kill
+ * @property {ServerEventDataPlayer} [victim] - player that died
+ * @property {ServerEventDataPlayer} [assister] - assisting player
+ * @property {ServerEventDataPlayer} [flash_assister] - flash assisting player
  * @property {number} [headshot] - headshot 1|0
  * @property {string} [weapon] - weapon used
  * @property {number} [site] - site bomb planted on

@@ -11,7 +11,7 @@ const pistolRgx = /^(glock|usp_silencer|hkp2000|elite|p250|tec9|fiveseven|cz75a|
  * Object containing regular expressions for every log line
  * @type {Object<string, RegExp>}
  */
-var rgx = {};
+let rgx = {};
 
 rgx.attacked = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.source+'attacked '+playerteamRgx.source+coordRgx.source+weapRgx.source+damageRgx.source);
 /*
@@ -312,5 +312,17 @@ rgx.smunpause = new RegExp(timestampRgx.source+'Match pause is disabled - mp_unp
   1: Date (MM/DD/YYYY)
   2: Time (HH:MM:SS)
 */
+rgx.accolade = new RegExp(timestampRgx.source+'ACCOLADE,\\sFINAL:\\s\\{(\\w+)\\},\\s(.+)<\\d+>,\\sVALUE:\\s(\\d+\\.\\d+),\\sPOS:\\s(\\d+),\\sSCORE:\\s(\\d+\\.\\d+)\\s?');
+/*
+  0: Full Match
+  1: Date (MM/DD/YYYY)
+  2: Time (HH:MM:SS)
+  3: Accolate Type
+  4: Player Name
+  5: Accolade Value
+  6: Position
+  7: Score
+*/
+rgx.get5player = /^(.+)<\d+><(STEAM.+)><\w*>$/
 
 module.exports = rgx;

@@ -3,6 +3,7 @@ const rgx = require('./rgx');
 
 /**
  * @typedef {import('./types.js').ServerEvent} ServerEvent
+ * @typedef {import('./types.js').ServerEventDataPlayer} ServerEventDataPlayer
  * @typedef {import('./types.js').Get5Event} Get5Event
  */
 
@@ -11,17 +12,17 @@ const rgx = require('./rgx');
  * @param {string} line - 
  * @returns {ServerEvent} Event for given log line
  */
-var parseLine = function(line) {
+const parseLine = (line) => {
   /**
    * @type {ServerEvent}
    */
-  var ev = {
+  let ev = {
     type: null, 
     data: {
       date: null,
       time: null,
     }};
-  var match = [];
+  let match = [];
 
   switch(true) {
     case rgx.attacked.test(line):
@@ -300,9 +301,6 @@ var parseLine = function(line) {
 
     case rgx.get5event.test(line):
     match = line.match(rgx.get5event);
-    /**
-     * @type {Get5Event}
-     */
     var g5ev = JSON.parse(match[3]);
     if (g5ev.hasOwnProperty('params') && g5ev.hasOwnProperty('event')) {
       switch (g5ev.event) {
@@ -334,6 +332,11 @@ var parseLine = function(line) {
     }
     ev.data.date = match[1];
     ev.data.time = match[2];
+    if (g5ev.params.hasOwnProperty('client')) g5ev.params.client = parseGet5Player(g5ev.params.client);
+    if (g5ev.params.hasOwnProperty('attacker')) g5ev.params.attacker = parseGet5Player(g5ev.params.attacker);
+    if (g5ev.params.hasOwnProperty('victim')) g5ev.params.victim = parseGet5Player(g5ev.params.victim);
+    if (g5ev.params.hasOwnProperty('assister')) g5ev.params.assister = parseGet5Player(g5ev.params.assister);
+    if (g5ev.params.hasOwnProperty('flash_assister')) g5ev.params.flash_assister = parseGet5Player(g5ev.params.flash_assister);
     ev.data.get5 = g5ev;
     break;
 
@@ -446,6 +449,17 @@ var parseLine = function(line) {
     ev.data.time = match[2];
     break;
 
+    case rgx.accolade.test(line):
+    match = line.match(rgx.accolade);
+    ev.type = 'accolade';
+    ev.data.date = match[1];
+    ev.data.time = match[2];
+    ev.data.accolade = match[3];
+    ev.data.source = match[4];
+    ev.data.value = parseFloat(match[5]);
+    ev.data.pos = parseInt(match[6], 10);
+    ev.data.score = parseFloat(match[7]);
+
     default:
     ev = {
       type: null, 
@@ -460,6 +474,18 @@ var parseLine = function(line) {
   return ev;
 }
 
+/**
+ * Convert player string from get5 events to usable name and steamid
+ * @param {string} playerString 
+ * @returns {ServerEventDataPlayer}
+ */
+const parseGet5Player = (playerString) => {
+  const match = rgx.get5player.test(playerString) ? playerString.match(rgx.get5player) : [null,null,null];
+  return {
+    name: match[1],
+    steam: match[2]
+  }
+}
 
 //Export parseLine function and rgx object
 module.exports = {
