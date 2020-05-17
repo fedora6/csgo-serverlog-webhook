@@ -68,7 +68,10 @@ Below is a list of all events, as well as any additional data items they contain
     - coord
   - weapon
   - headshot
-  - penetration
+  - penetrated
+  - noscope
+  - attackerblind
+  - throughsmoke
   
 - `assist`
   - source 
