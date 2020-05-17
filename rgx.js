@@ -33,7 +33,7 @@ rgx.attacked = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.sour
   15: Armour remaining
   16: Hitgroup
 */
-rgx.killed = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.source+'killed '+playerteamRgx.source+coordRgx.source+weapRgx.source+'\\(?(\\w*)\\s?(\\w*)\\)?');
+rgx.killed = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.source+'killed '+playerteamRgx.source+coordRgx.source+weapRgx.source+'\\(?([\\w\\s]+)\\)?');
 /*
   0: Full Match
   1: Date (MM/DD/YYYY)
@@ -47,8 +47,7 @@ rgx.killed = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.source
   9: Receiving Player Team
   10: Receiving Player Coords
   11: Weapon used
-  12: Headshot
-  13: Penetration
+  12: Flags (headshot penetrated noscope attackerblind throughsmoke)
 */
 rgx.assist = new RegExp(timestampRgx.source+playerteamRgx.source+'assisted killing '+playerteamRgx.source);
 /*

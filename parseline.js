@@ -72,8 +72,12 @@ const parseLine = (line) => {
       coord: match[10]
     };
     ev.data.weapon = match[11];
-    ev.data.headshot = match[12] == "headshot";
-    ev.data.penetration = match[13] == "penetrated";
+    const flags = match[12].split(" ");
+    ev.data.headshot = flags.indexOf("headshot") > -1;
+    ev.data.penetrated = flags.indexOf("penetrated") > -1;
+    ev.data.noscope = flags.indexOf("noscope") > -1;
+    ev.data.attackerblind = flags.indexOf("attackerblind") > -1;
+    ev.data.throughsmoke = flags.indexOf("throughsmoke") > -1;
     break;
 
     case rgx.assist.test(line):

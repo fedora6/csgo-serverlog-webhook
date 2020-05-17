@@ -22,7 +22,10 @@
  * @property {ServerEventDataHealth} [armour]
  * @property {string} [hitgroup] - 'generic' | 'head' | 'neck' | 'chest' | 'stomach' | 'left arm' | 'right arm' | 'left leg' | 'right leg' | 'gear'
  * @property {boolean} [headshot]
- * @property {boolean} [penetration]
+ * @property {boolean} [penetrated]
+ * @property {boolean} [noscope]
+ * @property {boolean} [attackerblind]
+ * @property {boolean} [throughsmoke]
  * @property {string} [duration]
  * @property {string} [entindex]
  * @property {ServerEventDataGrenade} [grenade]
