@@ -33,7 +33,7 @@ rgx.attacked = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.sour
   15: Armour remaining
   16: Hitgroup
 */
-rgx.killed = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.source+'killed '+playerteamRgx.source+coordRgx.source+weapRgx.source+'\\(?([\\w\\s]+)\\)?');
+rgx.killed = new RegExp(timestampRgx.source+playerteamRgx.source+coordRgx.source+'killed '+playerteamRgx.source+coordRgx.source+weapRgx.source+'(?:\\(([\\w\\s]+)\\))?');
 /*
   0: Full Match
   1: Date (MM/DD/YYYY)
