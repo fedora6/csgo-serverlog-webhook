@@ -26,7 +26,7 @@
  * @property {boolean} [noscope]
  * @property {boolean} [attackerblind]
  * @property {boolean} [throughsmoke]
- * @property {string} [duration]
+ * @property {number} [duration]
  * @property {string} [entindex]
  * @property {ServerEventDataGrenade} [grenade]
  * @property {ServerEventDataProjectile} [projectile]

@@ -129,7 +129,7 @@ const parseLine = (line) => {
       steam: match[4],
       team: match[5]
     };
-    ev.data.duration = match[6];
+    ev.data.duration = parseFloat(match[6]);
     ev.data.entindex = match[10];
     break;
 
@@ -395,7 +395,7 @@ const parseLine = (line) => {
     ev.type = 'matchstart';
     ev.data.date = match[1];
     ev.data.time = match[2];
-    ev.data.map = match[3];
+    ev.data.map = match[3].toLowerCase();
     break;
 
     case rgx.teamplaying.test(line):
@@ -419,7 +419,7 @@ const parseLine = (line) => {
       ct: parseInt(match[4], 10),
       t: parseInt(match[5], 10)
     };
-    ev.data.duration = match[6];
+    ev.data.duration = parseInt(match[6], 10);
     break;
 
     case rgx.rcon.test(line):
