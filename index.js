@@ -17,12 +17,12 @@ const webHooks = new WebHooks({
 //On udp socket receiving a message
 socket.on('message', function (message, rinfo) {
   //Trim non-standard log line characters and whitespace
-  var msg = message.toString('ascii').slice(5,-1).trim();
+  const msg = message.toString('ascii').slice(5,-1).trim();
   //Parse log line
   /**
    * @type {ServerEvent}
    */
-  var ev = parser.parseLine(msg);
+  const ev = parser.parseLine(msg);
   if (ev) {
     //Send out event created by log line
     webHooks.trigger(ev.type, {
@@ -34,12 +34,12 @@ socket.on('message', function (message, rinfo) {
       data: ev.data
     });
   }
-  console.log(ev.type);
-  console.log(rinfo.address + ':' + rinfo.port + ' - ' + msg);
+  //console.log(ev.type);
+  //console.log(rinfo.address + ':' + rinfo.port + ' - ' + msg);
 });
 //Indicate in console that the udp socket is listening
 socket.on('listening', function () {
-  var address = socket.address();
+  const address = socket.address();
   console.log('UDP Server listening on ' + address.address + ':' + address.port);
 });
 //Listen for udp on port:

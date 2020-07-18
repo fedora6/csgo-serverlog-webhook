@@ -72,7 +72,7 @@ const parseLine = (line) => {
       coord: match[10]
     };
     ev.data.weapon = match[11];
-    const flags = match[12].split(" ");
+    const flags = match[12] ? match[12].split(" ") : "";
     ev.data.headshot = flags.indexOf("headshot") > -1;
     ev.data.penetrated = flags.indexOf("penetrated") > -1;
     ev.data.noscope = flags.indexOf("noscope") > -1;
@@ -463,6 +463,7 @@ const parseLine = (line) => {
     ev.data.value = parseFloat(match[5]);
     ev.data.pos = parseInt(match[6], 10);
     ev.data.score = parseFloat(match[7]);
+    break;
 
     default:
     ev = {
@@ -472,7 +473,6 @@ const parseLine = (line) => {
         time: null,
       }
     };
-    console.log('No match found');
   }
 
   return ev;
