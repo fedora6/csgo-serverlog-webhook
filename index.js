@@ -23,7 +23,7 @@ socket.on('message', function (message, rinfo) {
    * @type {ServerEvent}
    */
   const ev = parser.parseLine(msg);
-  if (ev) {
+  if (ev && ev.type) {
     //Send out event created by log line
     webHooks.trigger(ev.type, {
       type: ev.type,
