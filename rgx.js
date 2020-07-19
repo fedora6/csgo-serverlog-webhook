@@ -322,6 +322,7 @@ rgx.accolade = new RegExp(timestampRgx.source+'ACCOLADE,\\sFINAL:\\s\\{(\\w+)\\}
   6: Position
   7: Score
 */
-rgx.get5player = /^(.+)<\d+><(STEAM.+)><\w*>$/
+rgx.get5player = /^(.+)<\d+><(STEAM.+)><\w*>$/;
+rgx.startedmap = new RegExp(timestampRgx.source+'Started map "(\\w+)" \\(CRC "-?\\d+"\\)');
 
 module.exports = rgx;

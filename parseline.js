@@ -465,6 +465,14 @@ const parseLine = (line) => {
     ev.data.score = parseFloat(match[7]);
     break;
 
+    case rgx.startedmap.test(line):
+    match = line.match(rgx.startedmap);
+    ev.type = 'startedmap';
+    ev.data.date = match[1];
+    ev.data.time = match[2];
+    ev.data.map = match[3].toLowerCase();
+    break;
+
     default:
     ev = {
       type: null, 
