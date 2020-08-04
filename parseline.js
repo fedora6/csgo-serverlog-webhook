@@ -305,7 +305,7 @@ const parseLine = (line) => {
 
     case rgx.get5event.test(line):
     match = line.match(rgx.get5event);
-    var g5ev = JSON.parse(match[3]);
+    const g5ev = JSON.parse(escapeUnicode(match[3]));
     if (g5ev.hasOwnProperty('params') && g5ev.hasOwnProperty('event')) {
       switch (g5ev.event) {
         case 'series_start':
@@ -494,9 +494,15 @@ const parseLine = (line) => {
 const parseGet5Player = (playerString) => {
   const match = rgx.get5player.test(playerString) ? playerString.match(rgx.get5player) : [null,null,null];
   return {
-    name: match[1],
+    name: decodeURIComponent(JSON.parse(`"`+match[1]+`"`)),
     steam: match[2]
   }
+}
+
+const escapeUnicode = (str) => {
+  return str.replace(/[^\0-~]/g, function(ch) {
+      return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
+  });
 }
 
 //Export parseLine function and rgx object
