@@ -10,6 +10,8 @@ const webHooks = new WebHooks({
   db: './webHooksDB.json'
 });
 
+const port = 3010;
+
 /**
  * @typedef {import('./types.js').ServerEvent} ServerEvent
  */
@@ -17,7 +19,7 @@ const webHooks = new WebHooks({
 //On udp socket receiving a message
 socket.on('message', function (message, rinfo) {
   //Trim non-standard log line characters and whitespace
-  const msg = message.toString('ascii').slice(5,-1).trim();
+  const msg = message.toString('utf8').slice(5,-1).trim();
   //Parse log line
   /**
    * @type {ServerEvent}
@@ -43,12 +45,11 @@ socket.on('listening', function () {
   console.log('UDP Server listening on ' + address.address + ':' + address.port);
 });
 //Listen for udp on port:
-socket.bind(3001);
+socket.bind(port);
 
 //Express for simple API for adding/removing webhook URLs
 const express = require('express');
 const app = express();
-const port = 3001;
 app.use(express.json());
 
 //Get all webhook URLs
